@@ -1,0 +1,142 @@
+[
+  {
+    "id": 1,
+    "nombre": "Hotel Xcaret",
+    "descripcion": "Hotel todo incluido con parques acuáticos y experiencias culturales.",
+    "categoria": "hotel",
+    "ubicacion": "Playa del Carmen",
+    "pesos": {
+      "descanso": 0.8,
+      "convivencia": 0.7,
+      "estatus": 0.9,
+      "aventura": 0.6,
+      "crecimiento_personal": 0.5
+    }
+  },
+  {
+    "id": 2,
+    "nombre": "Cenote Ik Kil",
+    "descripcion": "Famoso cenote abierto cerca de Chichén Itzá, ideal para nadar y conectar con la naturaleza.",
+    "categoria": "naturaleza",
+    "ubicacion": "Valladolid",
+    "pesos": {
+      "descanso": 0.5,
+      "convivencia": 0.6,
+      "estatus": 0.3,
+      "aventura": 0.9,
+      "crecimiento_personal": 0.7
+    }
+  },
+  {
+    "id": 3,
+    "nombre": "Quinta Avenida - Playa del Carmen",
+    "descripcion": "Vida nocturna, restaurantes y tiendas en una de las avenidas más famosas.",
+    "categoria": "vida_nocturna",
+    "ubicacion": "Playa del Carmen",
+    "pesos": {
+      "descanso": 0.2,
+      "convivencia": 0.9,
+      "estatus": 0.8,
+      "aventura": 0.4,
+      "crecimiento_personal": 0.1
+    }
+  },
+  {
+    "id": 4,
+    "nombre": "Zona Arqueológica de Tulum",
+    "descripcion": "Ruinas mayas frente al mar, combina historia y paisaje.",
+    "categoria": "arqueologico",
+    "ubicacion": "Tulum",
+    "pesos": {
+      "descanso": 0.4,
+      "convivencia": 0.5,
+      "estatus": 0.7,
+      "aventura": 0.6,
+      "crecimiento_personal": 0.9
+    }
+  },
+  {
+    "id": 5,
+    "nombre": "Coco Bongo",
+    "descripcion": "Espectáculo nocturno con acrobacias, música y ambiente festivo.",
+    "categoria": "vida_nocturna",
+    "ubicacion": "Cancún",
+    "pesos": {
+      "descanso": 0.1,
+      "convivencia": 0.9,
+      "estatus": 0.8,
+      "aventura": 0.5,
+      "crecimiento_personal": 0.1
+    }
+  },
+  {
+    "id": 6,
+    "nombre": "Retiro de Yoga en Akumal",
+    "descripcion": "Talleres de meditación y yoga en un entorno de playa tranquila.",
+    "categoria": "crecimiento",
+    "ubicacion": "Akumal",
+    "pesos": {
+      "descanso": 0.9,
+      "convivencia": 0.3,
+      "estatus": 0.2,
+      "aventura": 0.3,
+      "crecimiento_personal": 1.0
+    }
+  },
+  {
+    "id": 7,
+    "nombre": "Snorkel en Cozumel",
+    "descripcion": "Arrecife de coral con gran biodiversidad marina.",
+    "categoria": "deporte_acuatico",
+    "ubicacion": "Cozumel",
+    "pesos": {
+      "descanso": 0.4,
+      "convivencia": 0.7,
+      "estatus": 0.5,
+      "aventura": 0.9,
+      "crecimiento_personal": 0.6
+    }
+  },
+  {
+    "id": 8,
+    "nombre": "Chichén Itzá",
+    "descripcion": "Una de las 7 maravillas del mundo, imprescindible para amantes de la historia.",
+    "categoria": "arqueologico",
+    "ubicacion": "Chichén Itzá",
+    "pesos": {
+      "descanso": 0.3,
+      "convivencia": 0.6,
+      "estatus": 0.9,
+      "aventura": 0.4,
+      "crecimiento_personal": 0.8
+    }
+  },
+  {
+    "id": 9,
+    "nombre": "Parque Xplor",
+    "descripcion": "Tirolesas, vehículos anfibios y ríos subterráneos para adrenalina pura.",
+    "categoria": "aventura",
+    "ubicacion": "Playa del Carmen",
+    "pesos": {
+      "descanso": 0.1,
+      "convivencia": 0.6,
+      "estatus": 0.5,
+      "aventura": 1.0,
+      "crecimiento_personal": 0.2
+    }
+  },
+  {
+    "id": 10,
+    "nombre": "Isla Mujeres",
+    "descripcion": "Playa de aguas cristalinas, ideal para descansar y pasear en carrito de golf.",
+    "categoria": "playa",
+    "ubicacion": "Cancún",
+    "pesos": {
+      "descanso": 0.9,
+      "convivencia": 0.6,
+      "estatus": 0.4,
+      "aventura": 0.3,
+      "crecimiento_personal": 0.3
+    }
+  }
+]

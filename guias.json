@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "nombre": "Carlos Méndez",
+    "especialidad": "aventura",
+    "foto": "https://via.placeholder.com/100",
+    "descripcion": "Experto en deportes extremos y cenotes, con 10 años de experiencia guiando expediciones."
+  },
+  {
+    "id": 2,
+    "nombre": "María Fernández",
+    "especialidad": "crecimiento_personal",
+    "foto": "https://via.placeholder.com/100",
+    "descripcion": "Especialista en cultura maya, meditación y retiros espirituales."
+  },
+  {
+    "id": 3,
+    "nombre": "Jorge Rivera",
+    "especialidad": "descanso",
+    "foto": "https://via.placeholder.com/100",
+    "descripcion": "Conoce los mejores spots para relajarse, playas escondidas y hoteles boutique."
+  },
+  {
+    "id": 4,
+    "nombre": "Laura Gómez",
+    "especialidad": "convivencia",
+    "foto": "https://via.placeholder.com/100",
+    "descripcion": "Apasionada de la vida nocturna y la gastronomía, organiza experiencias grupales inolvidables."
+  },
+  {
+    "id": 5,
+    "nombre": "Roberto Salas",
+    "especialidad": "estatus",
+    "foto": "https://via.placeholder.com/100",
+    "descripcion": "Conoce los restaurantes con estrella Michelin y los yates privados de la Riviera."
+  }
+]
