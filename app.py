@@ -10,6 +10,8 @@ import json
 import os
 from urllib.parse import quote
 
+import edith
+
 BASE = os.path.dirname(os.path.abspath(__file__))
 
 with open(os.path.join(BASE, 'lugares.json'), 'r', encoding='utf-8') as f:
@@ -191,6 +193,7 @@ def armar_circuito(gustos, presupuesto=2, dias=3, acompanantes='pareja',
         'presupuesto': presupuesto,
         'acompanantes': acompanantes,
         'ritmo': ritmo,
+        'hospedaje': edith.zona_hospedaje(circuito),
     }
 
 
@@ -234,6 +237,17 @@ def recomendar():
         ritmo=data.get('ritmo', 'moderado'),
     )
     return jsonify(resultado)
+
+
+@app.route('/edith', methods=['POST'])
+def hablar_con_edith():
+    """Chat con E.D.I.T.H. sobre el circuito que ya se armó."""
+    data = request.get_json(force=True) or {}
+    pregunta = str(data.get('pregunta', '')).strip()[:500]
+    if not pregunta:
+        return jsonify({'respuesta': 'Escríbeme tu pregunta.', 'motor': 'reglas'})
+    return jsonify(edith.preguntar(pregunta, data.get('circuito') or {},
+                                   data.get('historial') or []))
 
 
 if __name__ == '__main__':

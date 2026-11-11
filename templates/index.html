@@ -35,6 +35,19 @@
   iframe { width: 100%; height: 260px; border: 0; border-radius: 12px; margin-top: 10px; }
   .vacio { text-align: center; color: #9fc3bb; padding: 30px 10px; }
   @media (max-width: 520px) { .grid { grid-template-columns: 1fr; } }
+  .hosp { background: #3a2f12; border-left: 4px solid #facc15; padding: 14px 16px; border-radius: 12px; margin-bottom: 16px; }
+  .hosp b { color: #facc15; }
+  #edith { display: none; }
+  .chat { max-height: 340px; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; margin-bottom: 10px; }
+  .msg { padding: 10px 12px; border-radius: 12px; line-height: 1.45; font-size: .95rem; max-width: 88%; }
+  .msg.e { background: #0f2a2e; align-self: flex-start; }
+  .msg.u { background: #4ade80; color: #0f2a2e; align-self: flex-end; font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .chip { background: #0f2a2e; border: 1px solid #2a5a5e; color: #b9d6cf; border-radius: 999px; padding: 6px 12px; font-size: .85rem; cursor: pointer; width: auto; font-weight: 600; }
+  .ask { display: flex; gap: 8px; }
+  .ask input { flex: 1; padding: 12px; border-radius: 10px; border: 1px solid #2a5a5e; background: #0f2a2e; color: #f2f7f5; font-size: 1rem; }
+  .ask button { width: auto; padding: 12px 16px; font-size: 1rem; }
+  .motor { font-size: .72rem; color: #7fb3a8; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -90,6 +103,22 @@
 
   <button id="armar" onclick="armar()">Armar mi circuito →</button>
   <div id="resultado"></div>
+
+  <div class="card" id="edith">
+    <h2>🤖 Pregúntale a Edith, la IA de Mayamind</h2>
+    <div class="chat" id="chat"></div>
+    <div class="chips">
+      <button class="chip" onclick="preguntar('¿Dónde me conviene hospedarme?')">¿Dónde me hospedo?</button>
+      <button class="chip" onclick="preguntar('¿Qué tengo que comer?')">¿Qué como?</button>
+      <button class="chip" onclick="preguntar('¿Cómo me muevo entre lugares?')">¿Cómo me muevo?</button>
+      <button class="chip" onclick="preguntar('¿Qué llevo?')">¿Qué llevo?</button>
+    </div>
+    <form class="ask" onsubmit="event.preventDefault(); preguntar(document.getElementById('q').value)">
+      <input id="q" placeholder="Escríbele a Edith…" autocomplete="off">
+      <button type="submit">Enviar</button>
+    </form>
+    <div class="motor" id="motor"></div>
+  </div>
 </div>
 
 <script>
@@ -136,6 +165,41 @@ async function armar() {
   btn.textContent = 'Armar mi circuito →';
 }
 
+let ultimo = null;
+let historial = [];
+
+function burbuja(quien, texto) {
+  const chat = document.getElementById('chat');
+  const div = document.createElement('div');
+  div.className = 'msg ' + quien;
+  div.textContent = texto;
+  chat.appendChild(div);
+  chat.scrollTop = chat.scrollHeight;
+  return div;
+}
+
+async function preguntar(texto) {
+  texto = (texto || '').trim();
+  if (!texto) return;
+  document.getElementById('q').value = '';
+  burbuja('u', texto);
+  const pensando = burbuja('e', 'Edith está pensando…');
+  try {
+    const r = await fetch('/edith', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ pregunta: texto, circuito: ultimo, historial }),
+    });
+    const d = await r.json();
+    pensando.textContent = d.respuesta;
+    document.getElementById('motor').textContent =
+      d.motor === 'llama3' ? 'Respondiendo con llama3 (local)' : 'Respondiendo en modo sin conexión';
+    historial.push({ role: 'user', content: texto }, { role: 'assistant', content: d.respuesta });
+  } catch (e) {
+    pensando.textContent = 'No pude conectarme. Revisa que el servidor esté corriendo.';
+  }
+}
+
 function render(data) {
   const res = document.getElementById('resultado');
   if (!data.circuito || !data.circuito.length) {
@@ -143,7 +207,14 @@ function render(data) {
     return;
   }
   const MOM = { manana: 'Mañana', tarde: 'Tarde', noche: 'Noche', dia: 'Día completo' };
-  let html = `<div class="guia"><b>${data.guia.nombre}</b> · tu guía<br>${data.mensaje_guia}</div>`;
+  ultimo = data;
+  historial = [];
+  document.getElementById('chat').innerHTML = '';
+  let html = '';
+  if (data.hospedaje) {
+    html += `<div class="hosp">🏨 <b>Hospédate en ${data.hospedaje.zona}</b><br>Ahí caen ${data.hospedaje.paradas} de tus ${data.hospedaje.total} paradas: menos carretera, más vacaciones.</div>`;
+  }
+  html += `<div class="guia"><b>${data.guia.nombre}</b> · tu guía<br>${data.mensaje_guia}</div>`;
   const dias = {};
   data.circuito.forEach(p => { (dias[p.dia] = dias[p.dia] || []).push(p); });
   Object.keys(dias).sort((a, b) => a - b).forEach(d => {
@@ -163,6 +234,8 @@ function render(data) {
     html += '</div>';
   });
   res.innerHTML = html;
+  document.getElementById('edith').style.display = 'block';
+  burbuja('e', `Hola, soy Edith. Ya vi tu circuito de ${data.dias} día(s). Pregúntame dónde hospedarte, qué comer o cómo moverte.`);
   res.scrollIntoView({ behavior: 'smooth' });
 }
 </script>
